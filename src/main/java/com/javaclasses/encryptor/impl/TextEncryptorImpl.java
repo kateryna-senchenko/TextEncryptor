@@ -1,6 +1,6 @@
 package com.javaclasses.encryptor.impl;
 
-import com.google.common.base.Preconditions;
+import static com.google.common.base.Preconditions.checkNotNull;
 import com.javaclasses.encryptor.TextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class TextEncryptorImpl implements TextEncryptor {
     @Override
     public String execute(String text) {
 
-        Preconditions.checkNotNull(text, "Input should not be null");
+        checkNotNull(text, "Input should not be null");
 
         text = text.replaceAll("\\s", "");
 
@@ -25,14 +25,14 @@ public class TextEncryptorImpl implements TextEncryptor {
             throw new IllegalStateException("Input should contain text");
         }
 
-        final char[][] grid = Preconditions.checkNotNull(populateGrid(text),
+        final char[][] grid = checkNotNull(populateGrid(text),
                 "Populated grid should not be null");
 
         if (log.isInfoEnabled()){
             log.info("Grid has been populated with characters");
         }
 
-        final String encryptedText = Preconditions.checkNotNull(formEncryptedText(grid),
+        final String encryptedText = checkNotNull(formEncryptedText(grid),
                 "Encrypted text should not be null");
 
         if (log.isInfoEnabled()){
