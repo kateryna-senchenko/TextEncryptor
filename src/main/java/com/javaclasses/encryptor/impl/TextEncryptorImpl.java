@@ -25,13 +25,15 @@ public class TextEncryptorImpl implements TextEncryptor {
             throw new IllegalStateException("Input should contain text");
         }
 
-        final char[][] grid = Preconditions.checkNotNull(populateGrid(text));
+        final char[][] grid = Preconditions.checkNotNull(populateGrid(text),
+                "Populated grid should not be null");
 
         if (log.isInfoEnabled()){
             log.info("Grid has been populated with characters");
         }
 
-        final String encryptedText = Preconditions.checkNotNull(formEncryptedText(grid));
+        final String encryptedText = Preconditions.checkNotNull(formEncryptedText(grid),
+                "Encrypted text should not be null");
 
         if (log.isInfoEnabled()){
             log.info("Text has been encrypted");
