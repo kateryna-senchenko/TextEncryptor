@@ -53,7 +53,6 @@ public class TextEncryptorImplTest {
 
     }
 
-
     @Test
     public void testCase4Encryption() {
 

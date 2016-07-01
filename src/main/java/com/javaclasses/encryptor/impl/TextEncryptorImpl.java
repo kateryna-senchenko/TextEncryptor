@@ -50,14 +50,14 @@ public class TextEncryptorImpl implements TextEncryptor {
         final int length = text.length();
 
         int rows = (int)Math.floor(Math.sqrt(length));
-        int columns = (int)Math.ceil(Math.sqrt(length));
+        final int columns = (int)Math.ceil(Math.sqrt(length));
 
 
         if (rows * columns < length){
             rows = columns;
         }
 
-        char[][] grid = new char[rows][columns];
+        final char[][] grid = new char[rows][columns];
 
         if (log.isInfoEnabled()){
             log.info("Created grid with " + rows + " rows and " + columns + " columns");
@@ -87,10 +87,10 @@ public class TextEncryptorImpl implements TextEncryptor {
      */
     private String formEncryptedText(char[][] grid){
 
-        StringBuilder encryptedText = new StringBuilder();
+        final StringBuilder encryptedText = new StringBuilder();
 
-        int rows = grid.length;
-        int columns = grid[0].length;
+        final int rows = grid.length;
+        final int columns = grid[0].length;
 
         for (int i=0; i < columns; i++){
 
