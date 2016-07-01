@@ -4,6 +4,10 @@ package com.javaclasses.encryptor;
 import com.javaclasses.encryptor.impl.TextEncryptorImpl;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -87,6 +91,46 @@ public class TextEncryptorImplTest {
             fail("Expected exception was not thrown");
         } catch (Exception e) {
             assertEquals("Input should contain text", e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testAsynchronousExecution() throws ExecutionException, InterruptedException {
+
+        final TextEncryptor encryptor = new TextEncryptorImpl();
+
+        final String text = "if man was meant to stay on the ground god would have given us roots";
+        final String expectedResult = "imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn sseoau";
+
+
+        final ExecutorService executor = Executors.newFixedThreadPool(50);
+        final CountDownLatch startLatch = new CountDownLatch(50);
+        final List<Future<String>> results = new ArrayList<>();
+
+
+        Callable<String> callable = new Callable<String>() {
+
+            @Override
+            public String call() throws Exception {
+
+                startLatch.countDown();
+                startLatch.await();
+
+                return encryptor.execute(text);
+            }
+        };
+
+        for(int i=0; i< 50; i++){
+
+            Future<String> future = executor.submit(callable);
+            results.add(future);
+        }
+
+        for (Future<String> future : results){
+
+            assertEquals("Text was not encrypted right",
+                    expectedResult, future.get());
         }
 
     }
