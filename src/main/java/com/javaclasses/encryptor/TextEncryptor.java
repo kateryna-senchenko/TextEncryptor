@@ -6,6 +6,7 @@ package com.javaclasses.encryptor;
 public interface TextEncryptor {
 
     /**
+     * performs text encryption
      * @param text - text to be encrypted
      * @return encrypted text
      */
