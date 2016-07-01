@@ -28,13 +28,13 @@ public class TextEncryptorImpl implements TextEncryptor {
         final char[][] grid = Preconditions.checkNotNull(populateGrid(text));
 
         if (log.isInfoEnabled()){
-            log.info("Grid was populated with characters");
+            log.info("Grid has been populated with characters");
         }
 
         final String encryptedText = Preconditions.checkNotNull(formEncryptedText(grid));
 
         if (log.isInfoEnabled()){
-            log.info("Text was encrypted");
+            log.info("Text has been encrypted");
         }
 
         return encryptedText;
@@ -43,7 +43,7 @@ public class TextEncryptorImpl implements TextEncryptor {
     /**
      * populates grid with characters
      * @param text - text to be split into characters to populate the grid
-     * @return grid containing the characters from the text
+     * @return 2d array containing the characters from the text
      */
     private char[][] populateGrid(String text){
 
@@ -63,13 +63,17 @@ public class TextEncryptorImpl implements TextEncryptor {
             log.info("Created grid with " + rows + " rows and " + columns + " columns");
         }
 
-        // populate the grid
-        for (int i=0; i<rows; i++) {
+
+        for (int i=0; i < rows; i++) {
 
             for (int j = 0; j < columns; j++) {
 
-                if ((i * columns + j) < length) {// false when there is no more characters in the text
+                if ((i * columns + j) < length) {
                     grid[i][j] = text.charAt(i * columns + j);
+
+                    if(log.isDebugEnabled()){
+                        log.debug("Character " + grid[i][j] + " written into the grid");
+                    }
                 }
             }
         }
@@ -88,7 +92,7 @@ public class TextEncryptorImpl implements TextEncryptor {
         int rows = grid.length;
         int columns = grid[0].length;
 
-        for (int i=0; i<columns; i++){
+        for (int i=0; i < columns; i++){
 
             if(i != 0) {
                 encryptedText.append(" ");
@@ -98,6 +102,10 @@ public class TextEncryptorImpl implements TextEncryptor {
 
                 if (grid[j][i] != 0) {
                     encryptedText.append(grid[j][i]);
+
+                    if(log.isDebugEnabled()){
+                        log.debug("Appended character " + grid[j][i]);
+                    }
                 }
             }
         }

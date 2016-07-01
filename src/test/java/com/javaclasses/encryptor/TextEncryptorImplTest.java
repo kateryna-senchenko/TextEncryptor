@@ -68,6 +68,19 @@ public class TextEncryptorImplTest {
     }
 
     @Test
+    public void testTextWithNumbersEncryption() {
+
+        final TextEncryptor encryptor = new TextEncryptorImpl();
+
+        final String text = "My number is +380956525433";
+
+        final String expectedResult = "Mb+54 ye363 nr853 ui02 ms95";
+
+        assertEquals("Text with numbers was not encrypted right", expectedResult , encryptor.execute(text));
+
+    }
+
+    @Test
     public void testNullInput() {
 
         final TextEncryptor encryptor = new TextEncryptorImpl();
